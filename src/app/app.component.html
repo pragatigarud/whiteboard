@@ -1,21 +1,85 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
-<router-outlet></router-outlet>
+<div class="container">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="row">
+        <div class="col-xl-12 text-right">
+          <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-primary" (click)="rasterize();">
+            <i class="fa fa-download" aria-hidden="true"></i> Export to image</button>
+          <button data-toggle="tooltip" data-placement="bottom" title="Clean Canvas" type="button" class="btn btn-danger" (click)="confirmClear();">
+            <i class="fa fa-ban" aria-hidden="true"></i> Clean</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-xl-3">
+      <div class="card">
+        <div class="card-header">Add text</div>
+        <div class="card-body">
+          <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="textString">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <button id="add-text" data-toggle="tooltip" data-placement="bottom" title="Add text" class="btn btn-primary" (click)="addText()">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="card">
+        <div class="card-header">Add figure</div>
+        <div class="card-body text-center max-height">
+          <div class="btn-group btn-group-vertical" role="group" aria-label="...">
+            <button type="button" class="btn btn-primary" (click)="addFigure('rectangle');">Rectangle</button>
+            <button type="button" class="btn btn-primary" (click)="addFigure('square');">Square</button>
+            <button type="button" class="btn btn-primary" (click)="addFigure('triangle');">Triangle</button>
+            <button type="button" class="btn btn-primary" (click)="addFigure('circle');">Circle</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <canvas id="canvas"></canvas>
+    </div>
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card" *ngIf="!selected">
+          <div class="card-header">Canvas</div>
+          <div class="card-body">
+            <div class="custom-item" *ngIf="!props.canvasImage">
+              <div class="custom-item-title">Pencil</div>
+              <div class="custom-item-body">
+                <input name="options" ng-control="options" type="radio" [value]="1" [(ngModel)]="isPencil" (change)="setMode(true)"> Selected
+                <br/>
+                <input name="options" ng-control="options" type="radio" [value]="2" [(ngModel)]="isPencil" (change)="setMode(false)">Not Selected
+                <br/>
+              </div>
+            </div>
+            <div class="custom-item" *ngIf="!props.canvasImage">
+              <div class="custom-item-title">Background Color</div>
+              <div class="custom-item-body">
+                <input type="text" class="form-control" [cpPosition]="'bottom'" [(colorPicker)]="props.canvasFill" [style.background]="props.canvasFill"
+                  [value]="props.canvasFill" (colorPickerChange)="setCanvasFill()">
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="card">
+          <div class="card-header">
+            <button type="button" class="btn btn-primary btn-sm" (click)="rasterizeJSON()">
+              <i class="fa fa-refresh" aria-hidden="true"></i> Render to json</button>
+          </div>
+          <div class="card-body">
+            <pre>{{json}}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+  </div>
