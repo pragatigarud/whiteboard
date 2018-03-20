@@ -52,8 +52,6 @@ export class AppComponent {
       isDrawingMode: this.isPencil
     });
 
-    console.log(this.canvas);
-
     this.canvas.on({
       "object:moving": e => {},
       "object:modified": e => {},
@@ -385,6 +383,9 @@ export class AppComponent {
 
   confirmClear() {
     if (confirm("Are you sure?")) {
+      this.props.canvasFill = "#ffffff";
+      this.textString = "";
+      this.setMode(false);
       this.canvas.clear();
     }
   }
