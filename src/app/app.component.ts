@@ -39,7 +39,7 @@ export class AppComponent {
   private imageEditor: boolean = false;
   private figureEditor: boolean = false;
   private selected: any;
-  private isPencil: boolean = true;
+  private isPencil: boolean = false;
 
   constructor() {}
 
@@ -62,7 +62,6 @@ export class AppComponent {
         this.selected = selectedObject;
         selectedObject.hasRotatingPoint = true;
         selectedObject.transparentCorners = false;
-        // selectedObject.cornerColor = 'rgba(255, 87, 34, 0.7)';
 
         this.resetPanels();
 
@@ -115,13 +114,6 @@ export class AppComponent {
   }
   /*------------------------Block elements------------------------*/
 
-  //Block "Size"
-
-  // changeSize(event: any) {
-  //   this.canvas.setWidth(this.size.width);
-  //   this.canvas.setHeight(this.size.height);
-  // }
-
   //Block "Add text"
 
   addText() {
@@ -143,52 +135,6 @@ export class AppComponent {
     this.textString = "";
   }
 
-  //Block "Add images"
-
-  // getImgPolaroid(event: any) {
-  //   console.log("inside func");
-
-  //   let el = event.target;
-  //   fabric.Image.fromURL(el.src, image => {
-  //     image.set({
-  //       left: 10,
-  //       top: 10,
-  //       angle: 0,
-  //       padding: 10,
-  //       cornersize: 10,
-  //       hasRotatingPoint: true,
-  //       peloas: 12
-  //     });
-  //     image.setWidth(150);
-  //     image.setHeight(150);
-  //     this.extend(image, this.randomId());
-  //     this.canvas.add(image);
-  //     this.selectItemAfterAdded(image);
-  //   });
-  // }
-
-  //Block "Upload Image"
-
-  // addImageOnCanvas(url) {
-  //   if (url) {
-  //     fabric.Image.fromURL(url, image => {
-  //       image.set({
-  //         left: 10,
-  //         top: 10,
-  //         angle: 0,
-  //         padding: 10,
-  //         cornersize: 10,
-  //         hasRotatingPoint: true
-  //       });
-  //       image.setWidth(200);
-  //       image.setHeight(200);
-  //       this.extend(image, this.randomId());
-  //       this.canvas.add(image);
-  //       this.selectItemAfterAdded(image);
-  //     });
-  //   }
-  // }
-
   readUrl(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
@@ -198,10 +144,6 @@ export class AppComponent {
       reader.readAsDataURL(event.target.files[0]);
     }
   }
-
-  // removeWhite(url) {
-  //   this.url = "";
-  // }
 
   //Block "Add figure"
 
@@ -279,19 +221,6 @@ export class AppComponent {
     })(obj.toObject);
   }
 
-  // setCanvasImage() {
-  //   let self = this;
-  //   if (this.props.canvasImage) {
-  //     this.canvas.setBackgroundColor(
-  //       { source: this.props.canvasImage, repeat: "repeat" },
-  //       function() {
-  //         // self.props.canvasFill = '';
-  //         self.canvas.renderAll();
-  //       }
-  //     );
-  //   }
-  // }
-
   randomId() {
     return Math.floor(Math.random() * 999999) + 1;
   }
@@ -337,37 +266,6 @@ export class AppComponent {
     object.set(name, value).setCoords();
     this.canvas.renderAll();
   }
-
-  // clone() {
-  //   let activeObject = this.canvas.getActiveObject(),
-  //     activeGroup = this.canvas.getActiveGroup();
-
-  //   if (activeObject) {
-  //     let clone;
-  //     switch (activeObject.type) {
-  //       case "rect":
-  //         clone = new fabric.Rect(activeObject.toObject());
-  //         break;
-  //       case "circle":
-  //         clone = new fabric.Circle(activeObject.toObject());
-  //         break;
-  //       case "triangle":
-  //         clone = new fabric.Triangle(activeObject.toObject());
-  //         break;
-  //       case "i-text":
-  //         clone = new fabric.IText("", activeObject.toObject());
-  //         break;
-  //       case "image":
-  //         clone = fabric.util.object.clone(activeObject);
-  //         break;
-  //     }
-  //     if (clone) {
-  //       clone.set({ left: 10, top: 10 });
-  //       this.canvas.add(clone);
-  //       this.selectItemAfterAdded(clone);
-  //     }
-  //   }
-  // }
 
   getId() {
     this.props.id = this.canvas.getActiveObject().toObject().id;
@@ -485,57 +383,6 @@ export class AppComponent {
     this.setActiveProp("fontFamily", this.props.fontFamily);
   }
 
-  /*System*/
-
-  // removeSelected() {
-  //   let activeObject = this.canvas.getActiveObject(),
-  //     activeGroup = this.canvas.getActiveGroup();
-
-  //   if (activeObject) {
-  //     this.canvas.remove(activeObject);
-  //     // this.textString = '';
-  //   } else if (activeGroup) {
-  //     let objectsInGroup = activeGroup.getObjects();
-  //     this.canvas.discardActiveGroup();
-  //     let self = this;
-  //     objectsInGroup.forEach(function(object) {
-  //       self.canvas.remove(object);
-  //     });
-  //   }
-  // }
-
-  // bringToFront() {
-  //   let activeObject = this.canvas.getActiveObject(),
-  //     activeGroup = this.canvas.getActiveGroup();
-
-  //   if (activeObject) {
-  //     activeObject.bringToFront();
-  //     // activeObject.opacity = 1;
-  //   } else if (activeGroup) {
-  //     let objectsInGroup = activeGroup.getObjects();
-  //     this.canvas.discardActiveGroup();
-  //     objectsInGroup.forEach(object => {
-  //       object.bringToFront();
-  //     });
-  //   }
-  // }
-
-  // sendToBack() {
-  //   let activeObject = this.canvas.getActiveObject(),
-  //     activeGroup = this.canvas.getActiveGroup();
-
-  //   if (activeObject) {
-  //     activeObject.sendToBack();
-  //     // activeObject.opacity = 1;
-  //   } else if (activeGroup) {
-  //     let objectsInGroup = activeGroup.getObjects();
-  //     this.canvas.discardActiveGroup();
-  //     objectsInGroup.forEach(object => {
-  //       object.sendToBack();
-  //     });
-  //   }
-  // }
-
   confirmClear() {
     if (confirm("Are you sure?")) {
       this.canvas.clear();
@@ -549,11 +396,6 @@ export class AppComponent {
       );
     } else {
       console.log(this.canvas.toDataURL("png"));
-      //window.open(this.canvas.toDataURL('png'));
-      // var image = new Image();
-      // image.src = this.canvas.toDataURL("png");
-      // var w = window.open("");
-      // w.document.write(image.outerHTML);
       var image = this.canvas
         .toDataURL("image/png")
         .replace("image/png", "image/octet-stream"); //Convert image to 'octet-stream' (Just a download, really)

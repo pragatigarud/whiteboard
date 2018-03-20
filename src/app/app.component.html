@@ -47,19 +47,19 @@
     </div>
     <div class="row">
       <div class="col-xl-12">
-        <div class="card" *ngIf="!selected">
+        <div class="card">
           <div class="card-header">Canvas</div>
           <div class="card-body">
-            <div class="custom-item" *ngIf="!props.canvasImage">
+            <div class="custom-item">
               <div class="custom-item-title">Pencil</div>
               <div class="custom-item-body">
-                <input name="options" ng-control="options" type="radio" [value]="1" [(ngModel)]="isPencil" (change)="setMode(true)"> Selected
+                <input name="options" ng-control="options" type="radio" [value]="true" [(ngModel)]="isPencil" (change)="setMode(true)"> Selected
                 <br/>
-                <input name="options" ng-control="options" type="radio" [value]="2" [(ngModel)]="isPencil" (change)="setMode(false)">Not Selected
+                <input name="options" ng-control="options" type="radio" [value]="false" [(ngModel)]="isPencil" (change)="setMode(false)"> Not Selected
                 <br/>
               </div>
             </div>
-            <div class="custom-item" *ngIf="!props.canvasImage">
+            <div class="custom-item">
               <div class="custom-item-title">Background Color</div>
               <div class="custom-item-body">
                 <input type="text" class="form-control" [cpPosition]="'bottom'" [(colorPicker)]="props.canvasFill" [style.background]="props.canvasFill"
@@ -68,18 +68,6 @@
             </div>
           </div>
         </div>
-        <br />
-        <div class="card">
-          <div class="card-header">
-            <button type="button" class="btn btn-primary btn-sm" (click)="rasterizeJSON()">
-              <i class="fa fa-refresh" aria-hidden="true"></i> Render to json</button>
-          </div>
-          <div class="card-body">
-            <pre>{{json}}</pre>
-          </div>
-        </div>
       </div>
     </div>
-    <br>
-    <br>
   </div>
