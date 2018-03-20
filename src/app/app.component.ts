@@ -385,7 +385,8 @@ export class AppComponent {
     if (confirm("Are you sure?")) {
       this.props.canvasFill = "#ffffff";
       this.textString = "";
-      this.setMode(false);
+      this.isPencil = false;
+      this.setMode(this.isPencil);
       this.canvas.clear();
     }
   }
